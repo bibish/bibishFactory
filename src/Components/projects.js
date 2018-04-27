@@ -5,7 +5,7 @@ class Projects extends Component {
     constructor(props){
         super();
         this.state = {
-          projects : ['todolist','test','feelsbadman']
+          projects : ['todo','test','feelsbadman','feelsbadman','feelsbadman']
         }
         
 
@@ -17,7 +17,7 @@ class Projects extends Component {
        <h1>project container</h1>
         {
           this.state.projects.map((item, i) =>
-          <Project name={item} id={i} key={i}></Project> )
+          <Project name={item} id={i} key={i} ></Project> )
         }
       </div>
     );
