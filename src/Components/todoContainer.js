@@ -4,13 +4,16 @@ import React, { Component } from 'react';
 class TodoContainer extends Component {
   constructor(props){
     super(props);
-    this.state = this.props
+    this.state = {
+      update:true
+    }
   }
     
   render() {
+   
     return (
       <div className="TodoContainer" >
-           <span>{this.props.content}, niveau de fun : <h1>{this.props.fun}</h1></span>    
+           <span>{this.props.content}</span>    
       </div>
     );
   }

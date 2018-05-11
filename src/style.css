@@ -59,3 +59,11 @@ body{
     75%  {background: #4DD0E1}
     100% {background: #EC407A}
   }
+
+.sudokuBox{
+    width: 75px;
+    height: 75px;
+    background-color: #efefef;
+    border:1px solid #000;
+    
+}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Project from './project';
 
+
 class Projects extends Component {
     constructor(props){
         super();
         this.state = {
-          projects : ['todo','test','feelsbadman','feelsbadman','feelsbadman']
+          projects : ['todo','sudoku','cars']
         }
         
 

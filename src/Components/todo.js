@@ -34,7 +34,9 @@ class Todo extends Component {
         todos:[...this.state.todos, 'lol no'],
         fun : this.state.fun + 1026*15
      })
-}
+    }
+
+
     
   render() {
     let {fun, isTodo, todos,funWarning} = this.state;
@@ -46,12 +48,12 @@ class Todo extends Component {
             <span>todolist is like ... how can we add fun to the fun ?<br/>let's try something !</span>
             <div className="TodoControls">
                 <br/>
-                <h1>fun Metter {fun} {(fun < 0) ? funWarning : null }</h1>
+                {/* <h1>fun Metter {fun} {(fun < 0) ? funWarning : null }</h1> */}
                 <br/>
                 <input type='text' placeholder='kek' onChange={(e)=> this.handleInput(e)}/>
                 <button onClick={()=> this.send()} >Add My todo !</button>
                 <button onClick={()=> this.create()}>Create random todo</button>
-                <button>Edits todo</button>
+                {/* <button onClick={}>Edits todo</button> */}
             </div>
             { isTodo ? 
                 <h1>lis of your tododododo</h1>
