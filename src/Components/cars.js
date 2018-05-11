@@ -28,27 +28,31 @@ class Cars extends Component {
       }
       
   }
+  movePepe(){
+    console.log('héé')
+  }
   moveRequest(){ // get player inputs
     
         document.addEventListener('keypress',(e)=>{
             if(e.keyCode === 100){
-                 this.movePlayer(1) 
+                 this.movePlayer(+10) 
             }
             if(e.keyCode === 113){
-                this.movePlayer(-1)
+                this.movePlayer(-10)
             }
         })
     
       
   }
+  
   launch(){  //generate player + ads
-      this.gameState = true;  
+      this.interval = setInterval(this.movePepe, 1000);
       let it = this.canvas.current;
       console.log(it);
       let ctx = it.getContext("2d");
       ctx.strokeStyle= "#000";
       ctx.strokeRect(0, 0, it.width, it.height);
-      this.state.player =  new this.drawPlayer(100,10,30,30,ctx) 
+      this.state.player =  new this.drawPlayer(220,350,30,30,ctx) 
       this.state.pepe.push( new this.drawPepe(10,10,30,30,ctx))
       this.drawGame(ctx);
       this.moveRequest()
@@ -57,11 +61,6 @@ class Cars extends Component {
   }
   drawGame(ctx){ // draw all my player&ads and the background
 
-    let bg = new Image(600,400);
-    bg.src=city;
-    bg.onload = function(){
-    ctx.drawImage(bg,0,0)
-    }
     this.state.player.update();
     for( let pepe of this.state.pepe){
         pepe.update()
