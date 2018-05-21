@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import city from '../assets/city.png';
-
+// STEP -1  loadAssets()
+// STEP 1  launch() 
+// STEP 2  launch -> drawEntity()
+// STEP 3   launch -> controls()
+// STEP 4   drawEntity -> drawBackground
+// STEP 5  drawEntity -> drawPepe, drawPlayer
+// STZP 6  moveplayer -> updateGame()
 
 class Cars extends Component {
   constructor(){
@@ -8,30 +14,52 @@ class Cars extends Component {
       this.canvas = React.createRef();
       this.state ={pepe:[], gameState:false, player:false}
   }
-  test(){
-    let bg = new Image(600,400);  
-    bg.src = city;
-    console.log(bg)
+  test(){}
+
+  loadAssets(){
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  updateGame(){
+    this.drawBackground();
+    this.state.player.update();
+    let lesVilainsPepe = this.state.pepe;
+    for(let pepe of lesVilainsPepe){
+      pepe.update();
+    }
+    
   }
   movePlayer(x){ // updates my player
       let player = this.state.player;
       let lesVilainsPepe = this.state.pepe;
       for(let pepe of lesVilainsPepe){
-        if(player.crashWith(pepe)){
-            console.log('ta perdu dude')
-            
+        if(player.hitbox(pepe)){
+            console.log('ta perdu dude');
         }else{
-            player.clear()
+            player.clear();
             player.x += x;
-            player.update()
+            this.updateGame();
+            // this.drawBackground();
+            // player.update()
         }
       }
       
   }
   movePepe(){
-    console.log('héé')
+    console.log('movepepe func')
   }
-  moveRequest(){ // get player inputs
+  Controls(){ // get player inputs
     
         document.addEventListener('keypress',(e)=>{
             if(e.keyCode === 100){
@@ -48,24 +76,31 @@ class Cars extends Component {
   launch(){  //generate player + ads
       this.interval = setInterval(this.movePepe, 1000);
       let it = this.canvas.current;
-      console.log(it);
       let ctx = it.getContext("2d");
       ctx.strokeStyle= "#000";
       ctx.strokeRect(0, 0, it.width, it.height);
-      this.state.player =  new this.drawPlayer(220,350,30,30,ctx) 
-      this.state.pepe.push( new this.drawPepe(10,10,30,30,ctx))
-      this.drawGame(ctx);
-      this.moveRequest()
+      this.drawEntity(ctx);
+      this.Controls()
 
 
   }
-  drawGame(ctx){ // draw all my player&ads and the background
+  drawEntity(ctx){ // draw all my player&ads and the background
 
+    this.drawBackground(ctx);
+    this.state.player =  new this.drawPlayer(220,350,30,30,ctx) 
+    this.state.pepe.push( new this.drawPepe(10,10,30,30,ctx))
     this.state.player.update();
     for( let pepe of this.state.pepe){
         pepe.update()
     }
+    
 
+  }
+  drawBackground(){
+    let it = this.canvas.current;
+    let ctx = it.getContext("2d");
+    ctx.fillStyle ='#bebe';
+    ctx.fillRect(0,0,600,400);
   }
   drawPepe(x,y,w,h, ctx){  // my pepe object
     this.w = w;
@@ -76,6 +111,7 @@ class Cars extends Component {
     this.update = function(){
       ctx.fillStyle ='#ff0';
       ctx.fillRect(this.x,this.y,this.w,this.h);
+      //this.drawBackground(ctx)
     }
     this.clear = function(){
         ctx.clearRect(this.x,this.y,this.w,this.h)
@@ -95,7 +131,7 @@ class Cars extends Component {
       this.clear = function(){
           ctx.clearRect(this.x,this.y,this.w,this.h)
       }
-      this.crashWith = function(vilainPepe) {
+      this.hitbox = function(vilainPepe) {
         let myleft = this.x;
         let myright = this.x + (this.w);
         let mytop = this.y;
